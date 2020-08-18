@@ -13,9 +13,9 @@ class Asteroid extends React.Component {
     const { asteroid } = this.props;
     return (
       <div className="container">
-        <p>{asteroid && asteroid.name}</p>
-        <p>{asteroid && asteroid.nasa_jpl_url}</p>
-        <p>{asteroid && asteroid.is_potentially_hazardous_asteroid}</p>
+        <p> Name -{asteroid && asteroid.name}</p>
+        <p> Nasa_JPL_URL -{asteroid && asteroid.nasa_jpl_url}</p>
+        <p>{asteroid && `${asteroid.is_potentially_hazardous_asteroid}`}</p>
       </div>
     );
   }

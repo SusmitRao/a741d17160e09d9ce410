@@ -10,8 +10,30 @@ class App extends React.Component {
     this.state = { id: "", asteroid: null };
     this.submit = this.submit.bind(this);
     this.random = this.random.bind(this);
+    this.callback = this.callback.bind(this);
   }
   componentDidMount() {}
+  callback = (id) => {
+    console.log("ok");
+
+    var self = this;
+    axios
+      .get(
+        `https://api.nasa.gov/neo/rest/v1/neo/${id}?api_key=gs3ccLEwLOb8bvbDEwwdvivpOnBWwBB4SmqjyeP4`
+      )
+      .then(function (response) {
+        // handle success
+        console.log("success");
+        console.log(response.data);
+        self.setState({ asteroid: response.data });
+        console.log(self.state);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        alert("This id doesn't exist");
+      });
+  };
   submit = () => {
     console.log("ok");
     if (this.state.id == "") {
@@ -38,6 +60,7 @@ class App extends React.Component {
   };
   random = () => {
     console.log("ok");
+    var self = this;
     axios
       .get(`https://api.nasa.gov/neo/rest/v1/neo/browse/?api_key=DEMO_KEY`)
       .then(function (response) {
@@ -47,6 +70,7 @@ class App extends React.Component {
         let length = neo.length;
         var id = neo[Math.floor(Math.random() * length)].id;
         console.log(id);
+        self.callback(id);
       })
       .catch(function (error) {
         // handle error
